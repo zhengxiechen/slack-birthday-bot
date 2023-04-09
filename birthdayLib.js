@@ -22,18 +22,56 @@ function getMonth() {
   return curMonth
 }
 
+function getDate() {
+  var currentdate = new Date(); 
+  curDate = currentdate.getDate()
+  return curDate
+}
+
 async function sendCelebrationByMonth() {
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
   ];
-  monthCeleMessage = 'Birthday stars for ' + `${monthNames[getMonth()]} ` + 'are ... ' + '\n';
+  var curMonth = getMonth();
+  var foundBirthday = false;
+  monthCeleMessage = 'Birthday stars for ' + `${monthNames[curMonth]} ` + 'are ... ' + '\n';
+  birthdays.forEach(eachBirthday => {
+    if (curMonth + 1 == eachBirthday.month) { // +1 to match month numbers with index 
+      foundBirthday = true;
+      monthCeleMessage += "<@" + eachBirthday.id + ">" + " " + "-" + " "
+                +`${eachBirthday.month}.`
+                + `${eachBirthday.date}`
+                + "\n";
+    }
+  })
+  if (foundBirthday) {
+    monthCeleMessage += `:birthday: \n`;
+  } else {
+    monthCeleMessage += `none :cry: \n`;
+  }
   app.client.chat.postMessage({
     channel: channelId,
     text: monthCeleMessage
   });
 }
 
-module.exports = { app, sendCelebrationByMonth };
+async function sendCelebrationByDay() {
+  var curMonth = getMonth();
+  var curDay = getDate();
+  birthdays.forEach(eachBirthday => {
+    if (curMonth + 1 == eachBirthday.month && curDay == eachBirthday.date) {
+      celeMessage = "Happy Birthday " + "<@" + eachBirthday.id + ">" + `! :tada::cake:` + "\n";
+
+      app.client.chat.postMessage({
+        channel: channelId,
+        text: celeMessage
+      });
+    }
+  })
+
+}
+
+module.exports = { app, sendCelebrationByMonth, sendCelebrationByDay };
 
 
 
