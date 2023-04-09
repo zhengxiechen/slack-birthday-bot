@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@slack/bolt": "^3.13.0"
+    "@slack/bolt": "^3.13.0",
+    "cron": "^2.3.0",
+    "node-cron": "^3.0.2"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
