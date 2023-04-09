@@ -1,7 +1,8 @@
 require("dotenv").config();
 const { App } = require("@slack/bolt");
 const fs = require('fs');
-const channelId = process.env.CHANNEL_ID;
+environment = process.env.ENVIRONMENT;
+const channelId = environment == "PRODUCTION" ? process.env.CHANNEL_ID : process.env.TEST_CHANNEL_ID
 
 // Read birthday database
 let raw = fs.readFileSync('./birthdayDB.json');
