@@ -64,4 +64,4 @@ typings/
 .DS_Store
 
 # birthday database
-*.json
+birthdayDB.json
